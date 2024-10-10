@@ -50,7 +50,7 @@ export const EditProfile = () => {
         }
 
         try {
-            const response = await fetch(`https://hygia-front-whats.vercel.app/auth/edit?userId=${userId}`, {
+            const response = await fetch(`https://hygia-ffa268ccb873.herokuapp.com/auth/edit?userId=${userId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export const EditProfile = () => {
                     return;
                 }
 
-                const response = await fetch(`https://hygia-front-whats.vercel.app/auth/info?userId=${userId}`, {
+                const response = await fetch(`https://hygia-ffa268ccb873.herokuapp.com/auth/info?userId=${userId}`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }

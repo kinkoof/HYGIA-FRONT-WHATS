@@ -71,7 +71,7 @@ export const Register = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://hygia-front-whats.vercel.app/auth/register', {
+            const response = await fetch('https://hygia-ffa268ccb873.herokuapp.com/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

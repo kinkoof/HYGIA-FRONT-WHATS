@@ -22,7 +22,7 @@ export const Login = () => {
         setErrorMessage("");
 
         try {
-            const response = await fetch('https://hygia-front-whats.vercel.app/auth/login', {
+            const response = await fetch('https://hygia-ffa268ccb873.herokuapp.com/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

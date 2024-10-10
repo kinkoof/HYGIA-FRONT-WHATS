@@ -28,7 +28,7 @@ export const ProductList: React.FC = () => {
                 setLoading(true);
 
                 // Faz a requisição para a API com o pharmacy_id
-                const response = await fetch(`https://hygia-front-whats.vercel.app/auth/list/products?pharmacy_id=${pharmacyId}`);
+                const response = await fetch(`https://hygia-ffa268ccb873.herokuapp.com/auth/list/products?pharmacy_id=${pharmacyId}`);
                 const data = await response.json();
 
                 if (response.ok) {
@@ -62,7 +62,7 @@ export const ProductList: React.FC = () => {
 
         if (confirmed) {
             try {
-                const response = await fetch(`https://hygia-front-whats.vercel.app/auth/delete/product/${productId}`, {
+                const response = await fetch(`https://hygia-ffa268ccb873.herokuapp.com/auth/delete/product/${productId}`, {
                     method: 'DELETE',
                 });
 

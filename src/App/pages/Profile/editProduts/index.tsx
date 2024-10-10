@@ -23,7 +23,7 @@ export const EditProduct: React.FC = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`https://hygia-front-whats.vercel.app/auth/product/${id}`);
+                const response = await fetch(`https://hygia-ffa268ccb873.herokuapp.com/auth/product/${id}`);
                 if (!response.ok) {
                     throw new Error('Erro ao carregar o produto.');
                 }
@@ -45,7 +45,7 @@ export const EditProduct: React.FC = () => {
         if (!product) return;
 
         try {
-            const response = await fetch(`https://hygia-front-whats.vercel.app/auth/edit/product/${id}`, {
+            const response = await fetch(`https://hygia-ffa268ccb873.herokuapp.com/auth/edit/product/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

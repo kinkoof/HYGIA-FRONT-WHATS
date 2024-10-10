@@ -47,7 +47,7 @@ export const AddProducts = () => {
         };
 
         try {
-            const response = await fetch('https://hygia-ffa268ccb873.herokuapp.com/auth/add', {
+            const response = await fetch('http://localhost:3000/auth/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export const AddProducts = () => {
     useEffect(() => {
         async function fetchCategories() {
             try {
-                const response = await fetch('https://hygia-ffa268ccb873.herokuapp.com/auth/categories');
+                const response = await fetch('http://localhost:3000/auth/categories');
                 const data = await response.json();
 
                 if (Array.isArray(data.categories)) {

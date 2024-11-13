@@ -12,17 +12,89 @@ interface Item {
 // Definindo a interface para um pedido
 interface Order {
     id: number;
-    customerName: string;
-    date: string;
+    created_at: string;
     status: string;
-    items: Item[]; // Itens do pedido
+    address: string;
+    items: Item[];
 }
 
 const OrderList = () => {
     const [orders, setOrders] = useState<Order[]>([]);
     const [error, setError] = useState<string | null>(null);
-
     const pharmacyId = localStorage.getItem('userId');
+
+    const handleAcceptOrder = async (orderId: number) => {
+        try {
+            // Requisição para aceitar o pedido
+            const response = await fetch(`https://hygia-api-whats.onrender.com/auth/accept/orders`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ orderId, pharmacyId }) // Garante que `pharmacyId` esteja sendo passado
+            });
+
+            // Verifique se a resposta está OK
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    // Atualiza o estado do pedido na lista
+                    setOrders(orders.map(order =>
+                        order.id === orderId ? { ...order, status: 'a' } : order
+                    ));
+                    alert('Pedido aceito com sucesso!');
+                } else {
+                    // Se a resposta foi OK mas sem sucesso, mostre a mensagem de erro
+                    setError(data.message || 'Erro desconhecido ao aceitar o pedido.');
+                }
+            } else {
+                // Se a resposta HTTP não for ok, tente capturar a mensagem do erro
+                const data = await response.json();
+                setError(data.message || 'Erro ao processar a aceitação do pedido.');
+            }
+        } catch (err) {
+            // Captura erro em caso de falha na requisição ou problemas de rede
+            console.error('Erro no processo de aceitação do pedido:', err);
+            setError('Erro ao processar a aceitação do pedido.');
+        }
+    };
+
+    const handleDenyOrder = async (orderId: number) => {
+        try {
+            // Requisição para recusar o pedido
+            const response = await fetch(`https://hygia-api-whats.onrender.com/auth/deny/orders`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ orderId, pharmacyId }) // Garante que `pharmacyId` esteja sendo passado
+            });
+
+            // Verifique se a resposta está OK
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    // Atualiza o estado do pedido na lista
+                    setOrders(orders.map(order =>
+                        order.id === orderId ? { ...order, status: 'x' } : order
+                    ));
+                    alert('Pedido recusado com sucesso!');
+                } else {
+                    // Se a resposta foi OK mas sem sucesso, mostre a mensagem de erro
+                    setError(data.message || 'Erro desconhecido ao recusar o pedido.');
+                }
+            } else {
+                // Se a resposta HTTP não for ok, tente capturar a mensagem do erro
+                const data = await response.json();
+                setError(data.message || 'Erro ao processar a recusa do pedido.');
+            }
+        } catch (err) {
+            // Captura erro em caso de falha na requisição ou problemas de rede
+            console.error('Erro no processo de recusa do pedido:', err);
+            setError('Erro ao processar a recusa do pedido.');
+        }
+    };
+
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -51,9 +123,9 @@ const OrderList = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Cliente</th>
                             <th>Data do Pedido</th>
                             <th>Status</th>
+                            <th>Endereço</th>
                             <th>Itens</th>
                             <th>Ações</th>
                         </tr>
@@ -62,10 +134,9 @@ const OrderList = () => {
                         {orders.map((order) => (
                             <tr key={order.id}>
                                 <td>{order.id}</td>
-                                <td>{order.customerName}</td>
-                                <td>{order.date}</td>
+                                <td>{order.created_at}</td>
                                 <td>{order.status}</td>
-                                {/* Exibindo os itens do pedido */}
+                                <td>{order.address}</td>
                                 <td>
                                     <ul>
                                         {order.items.map((item, index) => (
@@ -76,8 +147,22 @@ const OrderList = () => {
                                     </ul>
                                 </td>
                                 <td>
-                                    <button className="btn btn-info btn-sm me-2">Ver Detalhes</button>
-                                    <button className="btn btn-warning btn-sm">Gerenciar</button>
+                                    {order.status === 'w' && ( // Condição para exibir os botões apenas quando status for 'w'
+                                        <div className="d-flex gap-2">
+                                            <button
+                                                className="btn btn-success btn-sm"
+                                                onClick={() => handleAcceptOrder(order.id)}
+                                            >
+                                                Aceitar
+                                            </button>
+                                            <button
+                                                className="btn btn-danger btn-sm"
+                                            onClick={() => handleDenyOrder(order.id)}
+                                            >
+                                                Recusar
+                                            </button>
+                                        </div>
+                                    )}
                                 </td>
                             </tr>
                         ))}

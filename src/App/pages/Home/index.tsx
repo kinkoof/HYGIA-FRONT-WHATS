@@ -13,6 +13,9 @@ function Home() {
                     <Typography variant="h6" color="textSecondary" paragraph>
                         A tecnologia a favor da sua saúde e bem-estar.
                     </Typography>
+                    <Button variant="contained" color="primary" size="large" href="#download">
+                        Converse Agora!
+                    </Button>
                 </Box>
             </Container>
 
@@ -74,9 +77,7 @@ function Home() {
                     <Typography variant="h5" color="primary" gutterBottom>
                         Experimente o SAURIS hoje e descubra como podemos melhorar a sua experiência de compra de medicamentos!
                     </Typography>
-                    <Button variant="contained" color="primary" size="large" href="#download">
-                        Converse Agora!
-                    </Button>
+
                 </Box>
             </Container>
 

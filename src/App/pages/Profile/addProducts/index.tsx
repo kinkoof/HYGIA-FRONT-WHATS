@@ -9,10 +9,9 @@ interface Category {
 export const AddProducts = () => {
     const [formData, setFormData] = useState({
         name: "",
-        description: "",
-        category_id: "",
+        category: "",
         price: "",
-        stock: ""
+        prescription: ""
     });
     const [categories, setCategories] = useState<Category[]>([]);
     const [error, setError] = useState("");
@@ -29,7 +28,7 @@ export const AddProducts = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
-        if (!formData.name || !formData.description || !formData.category_id || !formData.price || !formData.stock) {
+        if (!formData.name || !formData.category || !formData.price || !formData.prescription) {
             alert("Por favor, preencha todos os campos obrigatórios.");
             return;
         }
@@ -39,11 +38,10 @@ export const AddProducts = () => {
 
         const productData = {
             name: formData.name,
-            description: formData.description,
-            category_id: formData.category_id,
-            pharmacy_id: Number(localStorage.getItem('userId')),
+            category: formData.category,
+            pharmacy: Number(localStorage.getItem('userId')),
             price: formData.price,
-            stock_quantity: formData.stock
+            prescription: formData.prescription
         };
 
         try {
@@ -59,10 +57,9 @@ export const AddProducts = () => {
                 alert('Produto adicionado com sucesso!');
                 setFormData({
                     name: "",
-                    description: "",
-                    category_id: "",
+                    category: "",
                     price: "",
-                    stock: ""
+                    prescription: ""
                 });
             } else {
                 const errorData = await response.json();
@@ -114,24 +111,11 @@ export const AddProducts = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">Descrição:</label>
-                    <textarea
-                        className="form-control"
-                        name="description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        placeholder="Digite a descrição do produto"
-                        rows={3}
-                        required
-                    />
-                </div>
-
-                <div className="mb-3">
                     <label className="form-label">Categoria:</label>
                     <select
                         className="form-control"
-                        name="category_id"
-                        value={formData.category_id}
+                        name="category"  // Changed from "category_id" to "category"
+                        value={formData.category}
                         onChange={handleChange}
                         required
                     >
@@ -160,17 +144,18 @@ export const AddProducts = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">Quantidade em Estoque:</label>
-                    <input
-                        type="number"
+                    <label className="form-label">Prescrição Necessária:</label>
+                    <select
                         className="form-control"
-                        name="stock"
-                        value={formData.stock}
+                        name="prescription"
+                        value={formData.prescription}
                         onChange={handleChange}
-                        placeholder="Digite a quantidade de estoque"
-                        min="0"
                         required
-                    />
+                    >
+                        <option value="">Selecione</option>
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
                 </div>
 
                 <div className="text-center">

@@ -7,6 +7,7 @@ import PrivateRoute from "./shared/PrivateRoute";
 import { EditProfile } from "./pages/Profile/editProfile";
 import { ProductList } from "./pages/Profile/listProducts";
 import { EditProduct } from "./pages/Profile/editProduts";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -15,46 +16,47 @@ function App() {
         {/* Rotas públicas */}
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
 
         {/* Rotas protegidas */}
         <Route
           path="/profile"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <Profile />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
           path="/profile/add"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <AddProducts />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
           path="/profile/edit"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <EditProfile />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
           path="/profile/products"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <ProductList />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route
           path="/profile/products/edit/:id"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <EditProduct />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
       </Routes>

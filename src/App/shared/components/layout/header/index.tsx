@@ -7,11 +7,8 @@ const Header: React.FC = () => {
 
     // Função de logout
     const handleLogout = () => {
-        // Remove o token e outros dados do localStorage
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
-
-        // Redireciona o usuário para a página de login
         navigate('/auth/login');
     };
 
@@ -24,26 +21,22 @@ const Header: React.FC = () => {
     };
 
     return (
-        <Navbar bg="dark" variant="dark" expand="lg">
-            <Container>
-                <Navbar.Brand href="/">Sauris</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/profile">Perfil</Nav.Link>
-                    </Nav>
-                    {/* Exibe o botão de Logout se o usuário estiver logado, senão exibe o botão de Login */}
+        <Navbar bg="primary" variant="dark" style={{ width: '100%', margin: 0 }}>
+            <Container fluid>
+                <Navbar.Brand href="/" style={{ fontFamily: 'Poppins, sans-serif' }}>Sauris</Navbar.Brand>
+                <Nav className="ml-auto">
+                    <Nav.Link href="/" style={{ fontFamily: 'Poppins, sans-serif', color: 'white' }}>Home</Nav.Link>
+                    <Nav.Link href="/profile" style={{ fontFamily: 'Poppins, sans-serif', color: 'white' }}>Perfil</Nav.Link>
                     {isLoggedIn ? (
-                        <Button variant="outline-light" onClick={handleLogout}>
+                        <Button variant="outline-light" onClick={handleLogout} style={{ fontFamily: 'Poppins, sans-serif', marginLeft: '10px' }}>
                             Logout
                         </Button>
                     ) : (
-                        <Button variant="outline-light" onClick={handleLogin}>
+                        <Button variant="outline-light" onClick={handleLogin} style={{ fontFamily: 'Poppins, sans-serif', marginLeft: '10px' }}>
                             Login
                         </Button>
                     )}
-                </Navbar.Collapse>
+                </Nav>
             </Container>
         </Navbar>
     );

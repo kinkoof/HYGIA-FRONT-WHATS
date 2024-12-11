@@ -99,7 +99,6 @@ export const ProductList: React.FC = () => {
                                     <h5 className="card-title" style={{ color: "#004d40" }}>{product.name}</h5>
                                     <p className="card-text">
                                         <strong>Preço:</strong> R${product.price}<br />
-                                        <strong>Quantidade em estoque:</strong> {product.stock_quantity}
                                     </p>
                                     {product.image_url && (
                                         <img
